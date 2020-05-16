@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+</head>
+
+<style>
+    * {
+        font-family: 'Noto Sans KR', sans-serif;
+        margin: 30px auto;
+        width: 400px;
+    }
+
+    .내용 {
+        color: violet;
+        font-size: 30px;
+    }
+
+    /* .image { */
+    /* width: 00px;
+    margin: 50px; */
+
+    /* .all { */
+        /* margin: 50px auto; */
+        /* width: 400px; */
+    }
+</style>
+
+<script>
+    function hey() {
+        alert('구글 구매 완료!');
+    }
+</script>
+
+<body>
+    <div class="all">
+        <div class="image">
+            <p>
+                <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png">
+            </p>
+        </div>
+        <div>
+            <p>
+                <a href="https://www.google.com/" class="내용"> 구글 판매합니다 </a>
+                <span style="font-size: 20px;">(급매) 999,999,999$ </span>
+            </p>
+            <h5>구글이 바이러스에 걸려 무용지물이 되었습니다. 흟흟ㄹ흟 떨이합니다</h5>
+        </div>
+        <div>
+            <p>
+                주문자 이름 : <input type="text" />
+            </p>
+            <p>
+                수량 <label for="cnt"></label>
+                <select>
+                    <option>----절호의 기회----</option>
+                    <option>1</option>
+                </select>
+            </p>
+            <p>
+                주소 : <input type="text" />
+            </p>
+            <p>
+                전화번호 : <input type="text" />
+            </p>
+        </div>
+        <button onclick="hey()" type="button" class="btn btn-primary">주문하기</button>
+    </div>
+</body>
+
+</html>
