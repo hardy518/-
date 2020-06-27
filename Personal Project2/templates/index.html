@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Webpage Title -->
+    <title> Daily Code | 최용호</title>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+    <!-- 구글폰트 -->
+    <link href="https://fonts.googleapis.com/css?family=Stylish&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap" rel="stylesheet">
+
+    <script type="text/javascript">
+        function is_long(obj) {
+            let content = $(obj).val();
+            console.log(content);
+            console.log(content.length);
+            if (content.length > 140) {
+                alert('리뷰는 140자까지 기록할 수 있습니다.');
+                $(obj).val(content.substring(0, 140));
+            }
+        }
+
+        function make_code() {
+            let title = $('#title').val();
+            let code = $('#code').val();
+            let trouble = $('#trouble').val();
+            let date = $('#date').val();
+
+            if (title == '') {
+                alert('제목을 입력해주세요');
+                $('#title').focus();
+                return;
+            } else if (code == '') {
+                alert('코드를 입력해주세요');
+                $('#code').focus();
+                return;
+            } else if (trouble == '') {
+                alert('무슨 고민을 했나요?');
+                $('#trouble').focus();
+                return;
+            } else if (date == '') {
+                alert('날짜를 입력해주세요');
+                $('#date').focus();
+                return;
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "/codes",
+                data: { title_give: title, code_give: code, trouble_give: trouble, date_give: date },
+                success: function (response) {
+                    if (response['result'] == 'success') {
+                        alert(response['msg']);
+                        window.location.reload();
+                    }
+                }
+            })
+        }
+
+        $(document).ready(function () {
+            $('#orders-box').html('');
+            listing();
+        });
+
+        function listing() {
+            $.ajax({
+                type: "GET",
+                url: "/codes",
+                data: {},
+                success: function (response) {
+                    if (response['result'] == 'success') {
+                        let codes = response['codes'];
+                        for (let i = 0; i < codes.length; i++) {
+                            make_card(codes[i]['title'], codes[i]['code'], codes[i]['trouble'], codes[i]['date']);
+                        }
+                    } else {
+                        alert('코드를 받아오지 못했습니다');
+                    }
+                }
+            })
+        }
+
+        function make_card(title, code, trouble, date) {
+            let temp_html = `<tr>
+                                <td>${title}</td>
+                                <td>${code} </td>
+                                <td>${trouble}</td>
+                                <td>${date}</td>
+                            </tr>`;
+            $('#orders-box').append(temp_html);
+        }
+
+        // button onclick="show_code()" type="button" class="btn btn-primary"
+        // function show_code() {
+        //     //     window.open(code, "PopupWin", "width=500,height=600");
+        //     if ($('#orders-box').css('display') == 'block') {
+        //         $('#orders-box').hide();
+        //         $('#orders-box').text('포스팅 박스 열기')
+        //     } else {
+        //         $('#orders-box').show();
+        //         $('#orders-box').text('포스팅 박스 닫기')
+        //         //   }
+        // //     }
+        // }
+
+    </script>
+
+    <style type="text/css">
+        * {
+            font-family: 'Do Hyeon', sans-serif;
+        }
+
+        .wrap {
+            width: 500px;
+            margin: auto;
+        }
+
+
+        .info {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .user-info {
+            margin: 20px 5px auto 5px;
+        }
+
+        h1,
+        h5 {
+            display: inline;
+        }
+
+        .order {
+            text-align: center;
+        }
+
+        .orders {
+            margin-top: 100px;
+        }
+
+        .meta_info {
+            width: 20%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="img"></div>
+        <div class="info">
+            <h1>Daily Code</h1>
+            <p>공부한 코드를 기록합시다</p>
+        </div>
+        <div class="info">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Title</span>
+                </div>
+                <input type="text" class="form-control" id="title" aria-describedby="basic-addon3">
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Code</span>
+                </div>
+                <input type="text" class="form-control" id="code" aria-describedby="basic-addon3">
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Trouble</span>
+                </div>
+                <textarea class="form-control" aria-describedby="basic-addon3" name="codeReview" id="trouble" cols="30"
+                    rows="5" placeholder="140자까지 입력할 수 있습니다." onkeyup="is_long(this)"></textarea>
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Date</span>
+                </div>
+                <input type="text" class="form-control" id="date" aria-describedby="basic-addon3">
+            </div>
+            <div class="order">
+                <button onclick="make_code()" type="button" class="btn btn-primary">Code Saved</button>
+            </div>
+        </div>
+        <div class="orders">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="meta_info" scope="col">Title</th>
+                        <th class="meta_info" scope="col">Code</th>
+                        <th scope="col">Trouble</th>
+                        <th class="meta_info" scope="col">Date</th>
+                    </tr>
+                </thead>
+                <tbody id="orders-box">
+                    <tr>
+                        <td>Otto</td>
+                        <td>@mdo</td>
+                        <td>@mdo</td>
+                        <td>@mdo</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>
